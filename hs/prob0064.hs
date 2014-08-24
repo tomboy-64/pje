@@ -8,16 +8,7 @@ e x a c
     where
       d = (x - a*a) `div` c
       res = (integerSquareRoot x + a) `div` d
---      r = c * (integerSquareRoot x + a) - (res * d)
       a' = (res * d) - a
-
-
---intermed (x,a,c,list)
---  | (even $ length list) == True && l /= 2    = check x a c list
---  | (even $ length list) == False || l == 2     = intermed (x,n,o,(m:list))
---    where
---      (m,n,o) = e x a c
---      l = length list
 
 check (x,a,c,list)
   | length list /= 2
