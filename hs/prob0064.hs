@@ -1,3 +1,9 @@
+-- Created by tomboy64 on 21-8-14
+-- Solving Project Euler Problem #64
+-- Implementing fraction development of square roots
+
+
+
 import Math.NumberTheory.Powers.Squares
 import Data.List
 import Debug.Trace
