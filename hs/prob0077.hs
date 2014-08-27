@@ -4,13 +4,13 @@ import Debug.Trace
 
 checkSums n = sum $ map (\x -> cSrec [x]) (takeWhile (< n) primes)
 	where
-		cSrec acc = if (isPrime $ n - (sum acc)) && (n-(sum acc)) <= (head acc)
-						then 1 + (sum
-							$ map (\x -> cSrec (x:acc))
-								(takeWhile (<= head acc) (takeWhile (<n-(sum acc)) primes)))
-						else sum
-							$ map (\x -> cSrec (x:acc))
-								(takeWhile (<= head acc) (takeWhile (<n-(sum acc)) primes))
+		cSrec acc
+			| (isPrime $ n - (sum acc))
+				&& (n-(sum acc)) <= (head acc)	= 1 + summed
+			| otherwise							= summed
+				where
+					summed = sum $ map (\x -> cSrec (x:acc))
+									(takeWhile (<= head acc) (takeWhile (<n-(sum acc)) primes))
 
 main = mapM_ (putStrLn.show) (takeWhile (\(_,x) -> x<=5000) (map (\x -> (x, checkSums x)) [1..]))
 
