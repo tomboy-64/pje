@@ -58,6 +58,7 @@ void* worker (void *none)
 		{
 			pthread_mutex_lock(&print_mutex);
 			gmp_printf("\nX: %Zd, Y: %Zd\n", x_priv, y_priv);
+      gmp_printf("\nResult: %Zd", x_priv);
 			pthread_mutex_unlock(&print_mutex);
 
 			result = true;

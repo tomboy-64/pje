@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <pthread.h>
+#include <stdlib.h>
 
 #define THREADS 4
 
@@ -77,9 +78,9 @@ void* worker( void *none )
 			}
 			else if ( status[i] == 79 )
 			{
-				status[i] 
+				status[i]; 
 				printf("length: %d, main: %d, hit count: %d", status[0], status[1], hit_counter);
-			else {
+      } else {
 				status[i] = status[i-1] + 1;
 			}
 		}

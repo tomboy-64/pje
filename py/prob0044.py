@@ -71,6 +71,5 @@ while (pentas[len(pentas)-1] - pentas[len(pentas)-2] < D) or (len(Dpot) > 0) or 
 				j += 1
 			accepted_hit = False
 			print("\nActually, the problem is solved here. Though I can't prove D is actually minimal, Euler accepts this.")
-			exit()
-		
-print("\n", D)
+	print("\n", D)
+exit()
