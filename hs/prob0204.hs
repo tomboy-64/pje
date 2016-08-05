@@ -8,7 +8,7 @@ maxi = 10^8
 main = (putStrLn . show)
 		$ rec
 			(listArray (1,maxi) (take maxi (repeat 1)))
-			(takeWhile (\x -> x<=maxi) (map fromIntegral (sieveFrom 7))
+			(takeWhile (\x -> x<=maxi) (map fromIntegral (sieveFrom 7)))
 
 rec myArr [] = sum $ map (\x -> myArr ! x) [1..maxi]
 rec myArr (r:rest) =

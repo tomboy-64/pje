@@ -21,4 +21,10 @@ test a b = t' (show a) (show b)
 						x!!1 == y!!1 && a%b == (read [x!!0]) % (read [y!!0]) ]
 					]
 
-main = (putStrLn . show) $ product $ map (\(a,b) -> a%b) candidates
+result :: [(Int,Int)] -> (Int,Int)
+result ((a,b):(c,d):[]) = (a*c,b*d)
+result (x:xs) = result (x:[result xs])
+
+main = do
+	mapM_ (putStrLn . show) candidates
+	(putStrLn . show) $ result candidates

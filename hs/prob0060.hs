@@ -34,14 +34,14 @@ hasNoDupes x = rec x (-1)
 							then False
 							else rec xs x
 
-recursor :: [(Int,[Int])] -> Set (Int,Int,Bool) -> (Int,[Int])
+recursor :: [(Int,[Int])] -> S.Set (Int,Int,Bool) -> (Int,[Int])
 recursor lists lookilook = if testList (snd (head lists)) lookilook
 			then head lists
 			else
 				trace (show (take 2 lists))
 				$ recursor (combine (tail lists) (newPrimeLists (snd (head lists)))) lookilook
-				where
-					testIt 
+--        where
+--					testIt 
 
 frst (a,_,_) = a
 scnd (_,a,_) = a
