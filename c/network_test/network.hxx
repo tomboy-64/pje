@@ -6,10 +6,15 @@ Edge<T>::Edge( Node<T>* fst, Node<T>* snd, const T& w ) : vertices { fst, snd },
   vertices[0] -> ref_ctr++;
   vertices[1] -> connections.push_back( this );
   vertices[1] -> ref_ctr++;
+
 #ifndef NDEBUG
-  std::cerr << "Registered edge (" << fst->index << "," << snd->index << ") with weight " << w << "." << std::endl;
-  std::cerr << this << " " << vertices[0]->connections.back() << " " << vertices[1]->connections.back() << std::endl;
+  std::cerr << "Registered edge (" << fst->index
+    << "," << snd->index << ") with weight " << w
+    << "." << std::endl;
+  std::cerr << this << " " << vertices[0]->connections.back()
+    << " " << vertices[1]->connections.back() << std::endl;
 #endif
+
 };
 
 // dtor needs to clean up references (ptrs) in associated nodes
@@ -17,10 +22,13 @@ template< typename T >
 Edge<T>::~Edge()
 {
 #ifndef NDEBUG
-  size_t del_ref_cnt = 0;
-  std::cerr << "Deleting pointers to Edge " << weight << " in Nodes " << vertices[0]->index << " and "
+  std::cerr << "Deleting pointers to Edge " << weight
+    << " in Nodes " << vertices[0]->index << " and "
     << vertices[1]->index << " ... ";
 #endif
+
+  size_t del_ref_cnt = 0;
+
   for( short v : {0,1} )
   {
     for( typename std::list<Edge<T>*>::iterator it = vertices[v]->connections.begin();
@@ -29,24 +37,26 @@ Edge<T>::~Edge()
     {
       if( *it == this )
       {
+        del_ref_cnt++;
         vertices[v]->connections.erase( it );
         vertices[v]->ref_ctr--;
-#ifndef NDEBUG
-        del_ref_cnt++;
-#endif
         break;
       }
     }
   }
+
 #ifdef NDEBUG
   if( del_ref_cnt != 2 )
   {
 #endif
+
     std::cerr << " @ (" << vertices[0] << "," << vertices[1]
       << "); deleted " << del_ref_cnt << " which should be 2." << std::endl;
+
 #ifdef NDEBUG
   }
 #endif
+
 }
 
 template< typename T >
@@ -69,9 +79,11 @@ Node<T>::~Node()
     delete *it;
     it = connections.begin(); // After every delete our std::list iterators get invalidated.
   }
+
 #ifndef NDEBUG
   std::cerr << "Deleted Node " << index << " and all associated Edges." << std::endl;
 #endif
+
 }
 
 template< typename T, size_t D >
@@ -86,7 +98,7 @@ Network<T,D>::~Network()
 {
   for( size_t i = 0; i < D; i++ )
   {
-    std::cerr << "Commencing deletion of network[" << i << "]" << std::endl;
+    std::cerr << "Commencing deletion of network[" << i << "] ... " << std::endl;
     delete network[i];
     std::cerr << "Deleted network[" << i << "]" << std::endl;
   }
@@ -103,7 +115,7 @@ bool Network<T,D>::exists_edge( const size_t& v1, const size_t& v2 )
         || ((*cit)->vertices[1] == network[v2]) )
     {
       return true;
-    } 
+    }
   }
   return false;
 }
@@ -160,7 +172,7 @@ T* Network<T,D>::get_weight( const size_t& v1, const size_t& v2 )
         || ((*cit)->vertices[1] == network[v2]) )
     {
       return &((*cit)->weight);
-    } 
+    }
   }
   return nullptr;
 }
